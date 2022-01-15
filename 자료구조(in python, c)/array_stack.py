@@ -37,4 +37,21 @@ class ArrayStack:
             raise Empty("Stack is empty")
         return self._data.pop()
     
-        
+
+#Usage
+S = ArrayStack()
+S.push(5)
+S.push(3)
+print(len(S))
+print(S.pop())
+print(S.is_empty())
+print(S,pop())
+print(S,is_empty())
+S.push(7)
+S.push(9)
+print(S.top())
+S.push(4)
+print(len(S))
+print(S.pop())
+S.push(6)
+
