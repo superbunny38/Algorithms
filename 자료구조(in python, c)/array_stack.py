@@ -16,6 +16,7 @@ class ArrayStack:
         return len(self._data) == 0
 
     def push(self, e):
+        print("push:",e)
         """add element e to the top of the stack."""
         return self._data.append(e)
 
@@ -35,23 +36,28 @@ class ArrayStack:
         """
         if self.is_empty():
             raise Empty("Stack is empty")
+        print("popped:",self._data[-1])
         return self._data.pop()
+    
+    def visualize(self):
+        print("\n-DISPLAY STACK-")
+        for i in range(len(self._data)):
+            i+=1
+            print("|",self._data[-1*i],"|")
+            print("-----")
     
 
 #Usage
 S = ArrayStack()
 S.push(5)
 S.push(3)
-print(len(S))
-print(S.pop())
-print(S.is_empty())
-print(S,pop())
-print(S,is_empty())
+S.visualize()
+S.pop()
+S.visualize()
+print("is_empty():",S.is_empty())
+S.pop()
 S.push(7)
 S.push(9)
-print(S.top())
-S.push(4)
-print(len(S))
-print(S.pop())
-S.push(6)
+S.visualize()
+
 
