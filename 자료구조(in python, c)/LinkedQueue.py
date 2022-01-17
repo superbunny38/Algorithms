@@ -10,6 +10,7 @@ class LinkedQueue:
         def __init__(self, element, next):# initialize node’s fields
             self._element = element# reference to user’s element
             self._next = next# reference to next node
+            
     def __init__(self):
         """Create an empty queue."""
         self._head = None
@@ -35,14 +36,17 @@ class LinkedQueue:
         Raise Empty exception if the queue is empty."""
         if self.is_empty():
             raise Empty("Queue is empty")
-        answer = self._head._next
+        answer = self._head._element
+        self._head = self._head._next
         self._size -= 1
         if self.is_empty():
             self._tail = None
+        print("dequeued:{}".format(answer))
         return answer
 
     def enqueue(self, e):
         """Add an element to the back of the queue."""
+        print("enqueue:{}".format(e))
         newest = self._Node(e,None)
         if self.is_empty():
             self._head = newest
@@ -51,5 +55,11 @@ class LinkedQueue:
         self._tail = newest
         self._size +=1
 
-        
-        
+LQ = LinkedQueue()
+LQ.enqueue(1)
+LQ.enqueue(2)
+LQ.enqueue(3)
+print("first:",LQ.first())
+LQ.dequeue()
+LQ.dequeue()
+LQ.dequeue()

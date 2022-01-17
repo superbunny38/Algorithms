@@ -49,11 +49,12 @@ class ArrayQueue:
         self._front = 0
 
     def enqueue(self, e):
-        print("enqueue: {}".format(e))
+        
         """Add an element to the back of queue"""
         if self._size == len(self._data):
             self._resize(2*len(self._data))
         avail = (self._front + self._size)%len(self._data)
+        print("enqueue: {} at {} current front: {}".format(e,avail,self._front))
         self._data[avail] = e
         self._size += 1
 
@@ -63,6 +64,12 @@ class ArrayQueue:
         print("====================")
         print(self._data)
         print("====================")
+
+    def len_data(self):
+        return len(self._data)
+
+    def size(self):
+        return self._size
     
 
     
@@ -75,4 +82,7 @@ Q.enqueue(11)
 Q.displayQ()
 Q.dequeue()
 Q.dequeue()
+Q.enqueue(13)
 Q.displayQ()
+print(Q.len_data())
+print(Q.size())
