@@ -1,5 +1,6 @@
 class Empty(Exception):
     pass
+
 class LinkedQueue:
     """FIFO queue implementation using a singly linked list for storage"""
     class _Node:
@@ -41,12 +42,12 @@ class LinkedQueue:
         self._size -= 1
         if self.is_empty():
             self._tail = None
-        print("dequeued:{}".format(answer))
+        #print("dequeued:{}".format(answer))
         return answer
 
     def enqueue(self, e):
         """Add an element to the back of the queue."""
-        print("enqueue:{}".format(e))
+        #print("enqueue:{}".format(e))
         newest = self._Node(e,None)
         if self.is_empty():
             self._head = newest
