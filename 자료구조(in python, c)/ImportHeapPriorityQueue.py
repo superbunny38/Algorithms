@@ -90,7 +90,7 @@ class HeapPriorityQueue(PriorityQueueBase):#base class defines _Item
         return (item._key, item._value)
 
 
-
+'''
 
 
 HPQ = HeapPriorityQueue()
@@ -102,7 +102,7 @@ HPQ._heapify()
 HPQ.traverse()
 
 HPQ.display()
-
+'''
 
 
 

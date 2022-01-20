@@ -33,27 +33,20 @@ class HeapPriorityQueue(PriorityQueueBase):#base class defines _Item
 
     def _downheap(self,j):
         if self._has_left(j):
-            left = self._left(j)
+            left = self._left
             small_child = left
-            
             if self._has_right(j):
                 right = self._right(j)
-                if self._data[right]._key<self._data[left]._key:
+                if self._data[right]<self._data[left]:
                     small_child = right
-            if self._data[small_child]._key < self._data[j]._key:
+            if self._data[small_child] < self._data[j]:
                 self._swap(j,small_child)
                 self._downheap(small_child)
                 
     def _heapify(self):
-        start = self._parent(len(self)-1)#start at parent of last leaf
+        start = self._parent(len(self)-1)#start at oarebt if last leaf
         for j in range(start,-1,-1):#going to and including the root
             self._downheap(j)
-
-    def traverse(self):
-        for d in self._data:
-            print("key:{} value: {}".format(d._key, d._value))
-        return self._data
-
 
     def __init__(self, contents = ()):
         """Create a new empty Priority QUeue."""
@@ -95,13 +88,20 @@ class HeapPriorityQueue(PriorityQueueBase):#base class defines _Item
 
 HPQ = HeapPriorityQueue()
 for i in range(10):
-    HPQ.add(10-i,"A"+str(i))
-HPQ.traverse()
-print("\n\nHeapify")
-HPQ._heapify()
-HPQ.traverse()
+    HPQ.add(i,"A"+str(i))
 
-HPQ.display()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

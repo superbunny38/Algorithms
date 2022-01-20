@@ -152,6 +152,12 @@ class PositionalList(_DoublyLinkedBase):
         old_value = original._element#temporarily store old element
         original._element = e
         return old_value#return the old element value
+    def find(self,e):
+        cur = self.first()
+        while cur is not None:
+            cur = self.after(cur)
+            if cur.element() == e:
+                return cur
 
     def traverse(self):
         print("\n========================List============================")
@@ -160,7 +166,7 @@ class PositionalList(_DoublyLinkedBase):
             print(" |{}|".format(cur.element()), end = "")
             cur = self.after(cur)
         print("\n=======================================================\n")
-    
+'''
 PL = PositionalList()
 #add elements to list
 PL.add_first(1)
@@ -181,3 +187,4 @@ PL.traverse()
 PL.replace(h,"i")
 print("replace h with i ")
 PL.traverse()
+'''
