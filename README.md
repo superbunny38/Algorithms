@@ -8,3 +8,4 @@
 
 - DxLab Winter Seminar 퀴즈 풀이
 - MVL Algorithm Study
+- 2022
