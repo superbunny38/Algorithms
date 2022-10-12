@@ -8,4 +8,4 @@
 
 - DxLab Winter Seminar 퀴즈 풀이
 - MVL Algorithm Study
-- 2022 SKKU
+- 2022 SKKU 데이터사이언스와 컴퓨팅 II
