@@ -1,99 +1,113 @@
 class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+    def __init__(self,item):
+        self.data = item
         self.prev = None
-
+        self.next =None
+        
 class DoublyLinkedList:
     def __init__(self):
-        self.start_node= None
         self.n_data = 0
+        self.head_flag = Node(None)
 
-    def check_valid_position(self,position):
-        if position > self.n_data+1:
+    def check_valid_pos(self,position):
+        if position <=0:
             return False
-        if position <= 0:
+        elif (position- self.n_data) > 1:
             return False
         return True
 
-    def insert(self,position,item):
-        if self.check_valid_position(position) == False:
+    def insert(self, position,item):
+        if self.check_valid_pos(position) == False:
             print("invalid position")
             return
-        
-        if self.n_data == 0:
-            new_node = Node(item)
-            self.start_node = new_node
-            self.n_data +=1
-            return
-        
-        cur_node = self.start_node
         new_node = Node(item)
-        
-        for pos in range(position-2):
-            cur_node = cur_node.next
-            
-        if cur_node.next == None:#마지막 노드임
-            cur_node.next = new_node
-            new_node.prev = cur_node
-            self.n_data +=1
-            return
+        if self.n_data == 0:
+            self.head_flag.next = new_node
+            new_node.prev = self.head_flag
+            self.n_data =1
         else:
-            new_node.next= cur_node.next
-            new_node.prev = cur_node
-            cur_node.next = new_node
-            self.n_data +=1
-            return
-        
-    def delete(self,position):
-        if self.check_valid_position(position) == False:
+            cur_node = self.head_flag
+            for i in range(position-1):
+                cur_node = cur_node.next
+            
+            if cur_node.next:
+                new_node.next = cur_node.next
+                new_node.prev = cur_node
+                cur_node.next = new_node
+                self.n_data +=1
+                
+            else:
+                cur_node.next = new_node
+                new_node.prev = cur_node
+                self.n_data +=1
+                
+    def get(self,position):
+        if self.check_valid_pos(position) == False:
             print("invalid position")
             return
-        if position == 1:#맨 앞 지움
-            next_node = self.start_node.next
-            self.start_node.next = None
-            self.start_node = next_node
-            self.n_data -=1
-        else:
-            cur_node = self.start_node
-            for pos in range(position-2):
-                cur_node = cur_node.next
-            #cur_node = prev_node of node to delete
-            del_node = cur_node.next
-            cur_node.next = del_node.next
-            del_node.next.prev = cur_node
-            del_node.prev = None
-            del_node.next = None
-            self.n_data -=1
+        if position > self.n_data:
+            print("invalid position")
             return
-        
-        
+        cur_node = self.head_flag
+        for i in range(position):
+            cur_node = cur_node.next
+        print(cur_node.data)
+
     def print(self):
-        print("current data")
-        cur_node = self.start_node
+        cur_node = self.head_flag
         for i in range(self.n_data):
             if i != self.n_data -1:
-                print(cur_node.data, end = " ")
                 cur_node = cur_node.next
+                print(cur_node.data,end = "")
             else:
-                print(cur_node.data)
                 cur_node = cur_node.next
+                print(cur_node.data)
 
-N = int(input())
-
+    def delete(self, position):
+        if self.check_valid_pos(position) == False:
+            print("invalid position")
+            return
+        if position > self.n_data:
+            print("invalid position")
+            return
+        if position == self.n_data:#마지막 삭제
+            cur_node = self.head_flag
+            for i in range(self.n_data-1):
+                cur_node = cur_node.next
+            #print(cur_node.next.data)
+            cur_node.next = None
+            self.n_data -=1
+        elif position == 1:
+            self.n_data -=1
+            delete_node = self.head_flag.next
+            self.head_flag.next = delete_node.next
+            delete_node.next.prev = self.head_flag
+            #print(delete_node.data)
+            del delete_node
+            
+        else:
+            cur_node = self.head_flag
+            for i in range(self.n_data-2):
+                cur_node = cur_node.next
+            delete_node = cur_node.next
+            #print(delete_node.data)
+            cur_node.next = delete_node.next
+            delete_node.next.prev = cur_node
+            self.n_data -=1
+            
 DLL = DoublyLinkedList()
-
-for _ in range(N):
-    order_str = input().split()#list type
-    letter = order_str[0]
-    if letter == 'A':
-        position,item = int(order_str[1]),order_str[2]
+N = int(input())
+for i in range(N):
+    command = input().split()
+    order = command[0]
+    if order == 'A':
+        position,item = int(command[1]),command[2]
         DLL.insert(position,item)
-
-    elif letter == 'D':
-        position = int(order_str[1])
-        DLL.delete(position)
-        
-    elif letter == 'P':
+    elif order == 'P':
         DLL.print()
-        
+    elif order == 'G':
+        position = int(command[1])
+        DLL.get(position)
+    elif order == 'D':
+        position = int(command[1])
+        DLL.delete(position)
