@@ -1,4 +1,11 @@
-# Codility & etc.
 **간절함은 통한다.**
-- Lessons
+- Problens in Lessons from Codility
 - 틈틈이 푸는 코딩 문제들
+- 약점 공략
+  - Dynamic Programming
+    - [우유 축제 (브론즈 3)](https://www.acmicpc.net/problem/14720)
+    - [부녀회장이 될테야 (브론즈 1)](https://www.acmicpc.net/problem/2775)
+    - [2×n 타일링 2 (실버 3)](https://www.acmicpc.net/problem/11727)
+    - [내리막 길 (골드 3)](https://www.acmicpc.net/problem/1520)
+    - [파일 합치기 (골드 3)](https://www.acmicpc.net/problem/11066)
+  - 다익스트라
