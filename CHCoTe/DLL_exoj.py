@@ -44,6 +44,13 @@ class _DoublyLinkedBase:
         element = node._element
         node._prev = node._next = node._element = None#deprecate node
         return element#return element of the deleted node
+
+    def _valid_pos(self,position):
+        if position > self._size+1:
+            return False
+        if position <= 0:
+            return False
+        return True
     
     def header(self):
         return self._header
@@ -52,6 +59,13 @@ class _DoublyLinkedBase:
         return self._trailer
 
     def get_node(self,position):
+        if self._valid_pos(position) == False:
+            print("invalid position")
+            return
+        if position > self._size:
+            print("invalid position")
+            return
+        
         h = self._header
         cur = h
         for i in range(position):
@@ -71,21 +85,50 @@ class _DoublyLinkedBase:
         print("-> trailer")
 
     def insert(self,e,position):
+        if self._valid_pos(position) == False:
+            print("invalid position")
+            return
         if self._size == 0:
             self._insert_between(e,self._header,self._trailer)
+            return
         h = self._header
         cur = h
-        for i in range(position):
+        for i in range(position-1):
             cur = cur._next
         next_node = cur._next
         self._insert_between(e,cur,next_node)
         return
 
     def delete(self,position):
+        if self._valid_pos(position) == False:
+            print("invalid position")
+            return
+        if position > self._size:
+            print("invalid position")
+            return
+        
         del_node = self.get_node(position)
         self._delete_node(del_node)
         return
     
 DList = _DoublyLinkedBase()
 
-
+N = int(input())
+for _ in range(N):
+    orders = input().split()
+    command = orders[0]
+    if command == 'A':
+        position,data = int(orders[1]), orders[2]
+        DList.insert(data,position)
+        
+    elif command == 'P':
+        DList.traverse()
+        
+    elif command == 'G':
+        position = int(orders[1])
+        ret_node = DList.get_node(position)
+        if ret_node:
+            print(ret_node.data)
+    elif command == 'D':
+        position = int(orders[1])
+        DList.delete(position)
