@@ -74,15 +74,18 @@ class _DoublyLinkedBase:
     
     def traverse(self):
         h = self._header
-        print("header ->", end = " ")
+        #print("header ->", end = " ")
         cur = h._next
         for i in range(self._size):
-            print("|",cur._element,"|", end = "")
+            if i == self._size -1:
+                print(cur_element)
+            else:
+                print(cur._element, end = " ")
             try:
                 cur = cur._next
             except:
                 pass
-        print("-> trailer")
+        #print("-> trailer")
 
     def insert(self,e,position):
         if self._valid_pos(position) == False:
