@@ -11,9 +11,9 @@
     - [내리막 길 (골드 3)](https://www.acmicpc.net/problem/1520)
     - [파일 합치기 (골드 3)](https://www.acmicpc.net/problem/11066)
   - 다익스트라
-    - [~~1916 최소비용 구하기(골드 5)~~](https://www.acmicpc.net/problem/1916)
-    - [~~1504 특정한 최단 경로(골드 4)~~](https://www.acmicpc.net/problem/1504)
+    - [~~1916 최소비용 구하기 (골드 5)~~](https://www.acmicpc.net/problem/1916)
+    - [~~1504 특정한 최단 경로 (골드 4)~~](https://www.acmicpc.net/problem/1504)
     - [1238 파티 (골드 3)](https://www.acmicpc.net/problem/1238)
   - 그래프/백트랙킹
-    - [~~1987 알파벳(골드 4)~~](https://www.acmicpc.net/problem/1987)
+    - [~~1987 알파벳 (골드 4)~~](https://www.acmicpc.net/problem/1987)
     - [9663 N-Queen (골드 4)](https://www.acmicpc.net/problem/9663)
