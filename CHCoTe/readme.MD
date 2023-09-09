@@ -1,6 +1,8 @@
 **간절함은 통한다.**
 - Problens in Lessons from Codility
 - 틈틈이 푸는 코딩 문제들
+  - 그래프 순회
+    - [~~2606 바이러스 (실버 3)~~](https://www.acmicpc.net/problem/2606)
 - 약점 공략
   - Dynamic Programming
     - [~~14720 우유 축제 (브론즈 3)~~](https://www.acmicpc.net/problem/14720)
