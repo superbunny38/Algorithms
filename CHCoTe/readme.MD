@@ -3,6 +3,8 @@
 - 틈틈이 푸는 코딩 문제들
   - 그래프 순회
     - [~~2606 바이러스 (실버 3)~~](https://www.acmicpc.net/problem/2606)
+  - 예전에 틀린 것들 청산 작업
+    - [1138 한 줄로 서기 (실버 2)](https://www.acmicpc.net/problem/1138)
 - 약점 공략
   - Dynamic Programming
     - [~~14720 우유 축제 (브론즈 3)~~](https://www.acmicpc.net/problem/14720)
