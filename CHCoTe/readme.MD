@@ -9,7 +9,8 @@
   - Dynamic Programming
     - [~~14720 우유 축제 (브론즈 3)~~](https://www.acmicpc.net/problem/14720)
     - [~~2775 부녀회장이 될테야 (브론즈 1)~~](https://www.acmicpc.net/problem/2775)
-    - [~~2×n 타일링 2 (실버 3)~~](https://www.acmicpc.net/problem/11727)
+    - [~~11727 2×n 타일링 2 (실버 3)~~](https://www.acmicpc.net/problem/11727)
+    - [~~1912 연속합 (실버 2)~~](https://www.acmicpc.net/problem/1912)
     - [내리막 길 (골드 3)](https://www.acmicpc.net/problem/1520)
     - [파일 합치기 (골드 3)](https://www.acmicpc.net/problem/11066)
   - 다익스트라
