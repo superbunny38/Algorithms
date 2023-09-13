@@ -5,6 +5,8 @@
     - [~~2606 바이러스 (실버 3)~~](https://www.acmicpc.net/problem/2606)
   - 예전에 틀린 것들 청산 작업
     - [1138 한 줄로 서기 (실버 2)](https://www.acmicpc.net/problem/1138)
+  - 오일러
+    - [~~11689 GCD(n, k) = 1 (골드 1)~~](https://www.acmicpc.net/problem/11689)
 - 약점 공략
   - Dynamic Programming
     - [~~14720 우유 축제 (브론즈 3)~~](https://www.acmicpc.net/problem/14720)
