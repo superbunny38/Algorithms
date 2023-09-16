@@ -6,8 +6,11 @@
   - 예전에 틀린 것들 청산 작업
     - [1138 한 줄로 서기 (실버 2)](https://www.acmicpc.net/problem/1138)
   - 오일러/수학
-    - [~~11689 GCD(n, k) = 1 (골드 1)~~](https://www.acmicpc.net/problem/11689)
     - [~~1629 곱셈 (실버 1)~~](https://www.acmicpc.net/problem/1629)
+    - [~~2749 피보나치 수 3 (골드 2)~~](https://www.acmicpc.net/problem/2749)
+    - [~~11689 GCD(n, k) = 1 (골드 1)~~](https://www.acmicpc.net/problem/11689)
+    
+    
 
 - 약점 공략
   - Dynamic Programming
