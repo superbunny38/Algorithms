@@ -16,6 +16,7 @@
     - [~~11727 2×n 타일링 2 (실버 3)~~](https://www.acmicpc.net/problem/11727)
     - [~~1912 연속합 (실버 2)~~](https://www.acmicpc.net/problem/1912)
     - [~~9251 LCS (골드 5)~~](https://www.acmicpc.net/problem/9251)
+    - [~~5582 공통 부분 문자열 (골드 5)~~](https://www.acmicpc.net/problem/5582)
     - [내리막 길 (골드 3)](https://www.acmicpc.net/problem/1520)
     - [파일 합치기 (골드 3)](https://www.acmicpc.net/problem/11066)
   - 다익스트라
