@@ -28,9 +28,11 @@
     - [~~1916 최소비용 구하기 (골드 5)~~](https://www.acmicpc.net/problem/1916)
     - [~~1504 특정한 최단 경로 (골드 4)~~](https://www.acmicpc.net/problem/1504)
     - [1238 파티 (골드 3)](https://www.acmicpc.net/problem/1238)
-  - 그래프/백트랙킹
+  - 그래프/백트랙킹/투포인터
     - [1759 암호 만들기 (골드 5)](https://www.acmicpc.net/problem/1759)
     - [~~1987 알파벳 (골드 4)~~](https://www.acmicpc.net/problem/1987)
     - [~~9663 N-Queen (골드 4)~~](https://www.acmicpc.net/problem/9663)
+    - [~~1806 부분합 (골드 4)~~](https://www.acmicpc.net/problem/1806)
     - [~~16236 아기상어 (골드 3)~~](https://www.acmicpc.net/problem/16236)
+    
     
