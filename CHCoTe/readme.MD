@@ -8,6 +8,7 @@
   - 예전에 틀린 것들 청산 작업
     - [~~2003 수들의 합 2 (실버 3)~~](https://www.acmicpc.net/problem/2003)
     - [1138 한 줄로 서기 (실버 2)](https://www.acmicpc.net/problem/1138)
+    - [~~2023 신기한 소수 (골드 5)~~](https://www.acmicpc.net/problem/2023)
     
   - 오일러/수학
     - [~~1629 곱셈 (실버 1)~~](https://www.acmicpc.net/problem/1629)
