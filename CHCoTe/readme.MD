@@ -1,4 +1,6 @@
 **간절함은 통한다.**
+(~~어쩌다보니PS가취미가된..~~)
+
 - Problens in Lessons from Codility
 - 틈틈이 푸는 코딩 문제들
   - 그래프 순회
