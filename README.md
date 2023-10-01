@@ -10,4 +10,4 @@
 - MVL Algorithm Study
 - 2022 SKKU 데이터사이언스와 컴퓨팅 II
 
-- CHCoTe: 코딩테스트 꾸준한 준비 자료 (**Codility 위주**) + 약점 공략
+- CHCoTe: 코딩테스트 꾸준한 준비 자료 (**Codility 위주**) + 약점 공략 (**백준 위주**)
