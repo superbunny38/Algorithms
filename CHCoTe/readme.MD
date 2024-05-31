@@ -5,6 +5,7 @@
 - 틈틈이 푸는 코딩 문제들
   - 그래프 순회
     - [~~2606 바이러스 (실버 3)~~](https://www.acmicpc.net/problem/2606)
+    - [~~7576 토마토 (골드 5)~~](https://www.acmicpc.net/problem/7576)
   - 예전에 틀린 것들 청산 작업
     - [~~2003 수들의 합 2 (실버 3)~~](https://www.acmicpc.net/problem/2003)
     - [1138 한 줄로 서기 (실버 2)](https://www.acmicpc.net/problem/1138)
