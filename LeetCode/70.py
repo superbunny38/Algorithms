@@ -7,3 +7,4 @@ class Solution:
             new = memoization[-1]+memoization[-2]
             memoization.append(new)
         return memoization[n]
+
