@@ -6,7 +6,7 @@ using namespace std;
 //./my_program
 
 int main(){
-    const unsigned long long c1 = 4e10;
+    const double c1 {4e10};
 
     cout<<c1<<endl;
 
