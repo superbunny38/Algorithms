@@ -322,10 +322,11 @@ int main(){
 }
 
 /*
-[Standard triple loop] Waited 5120.62 ms
-[GEMM] Waited 976.195 ms
-[Tiling] Waited 641.961 ms
-[AVX2] Waited 137.836 ms
-[AVX2 + _mm256_load_ps] Waited 137.198 ms
-[AVX2 + unique_ptr] Waited 133.831 ms
+[Standard triple loop] Waited 3189.48 ms
+[GEMM] Waited 1215.38 ms
+[Tiling] Waited 698.778 ms
+[AVX2] Waited 137.571 ms
+[AVX2 + _mm256_load_ps] Waited 134.944 ms
+[AVX2 + unique_ptr] Waited 135.432 ms
+[AVX2 + shuffle and fold] Waited 137.124 ms
 */
