@@ -24,7 +24,8 @@ void standard_triple_loop(float *A,float *B, float* C){
 }
 
 void gemm_transposed(float* A, float* B, float* C){
-    float *B_T = (float *)malloc(N*N*sizeof(float));
+    size_t bytes = N*N*sizeof(float);
+    float *B_T = (float *)aligned_alloc(32,bytes);
 
     if (B_T == NULL) return;
 
@@ -53,7 +54,8 @@ void gemm_transposed(float* A, float* B, float* C){
 //memory optimization
 void tiling(float* A, float* B, float* C){
 
-    float *B_T = (float *)malloc(N*N*sizeof(float));
+    size_t bytes = N*N*sizeof(float);
+    float *B_T = (float *)aligned_alloc(32,bytes);
 
     if (B_T == NULL) return;
 
@@ -89,7 +91,8 @@ void tiling(float* A, float* B, float* C){
 //math optimization
 void avx2_ace(float* A, float* B, float* C){
 
-    float *B_T = (float *)malloc(N*N*sizeof(float));
+    size_t bytes = N*N*sizeof(float);
+    float *B_T = (float *)aligned_alloc(32,bytes);
 
     if (B_T == NULL) return;
 
@@ -106,6 +109,47 @@ void avx2_ace(float* A, float* B, float* C){
             for (int k = 0;k<N;k+=8){
                 __m256 a_vec = _mm256_loadu_ps(&A[i*N+k]);
                 __m256 b_vec = _mm256_loadu_ps(&B_T[j*N+k]);
+
+                sum_vec = _mm256_fmadd_ps(a_vec,b_vec,sum_vec);
+            }
+            
+            float total = 0.0f;
+
+            __m128 low = _mm256_extractf128_ps(sum_vec,0);
+            __m128 high = _mm256_extractf128_ps(sum_vec,1);
+
+            __m128 temp_total = _mm_hadd_ps(low,high);
+            temp_total = _mm_hadd_ps(temp_total, temp_total);
+            total = _mm_cvtss_f32(temp_total);
+
+
+            C[i*N+j] = total;
+        }
+    }
+    free(B_T);
+}
+
+
+void avx2_ace_faster(float* A, float* B, float* C){
+
+    size_t bytes = N*N*sizeof(float);
+    float *B_T = (float *)aligned_alloc(32,bytes);
+
+    if (B_T == NULL) return;
+
+    for (int i= 0;i<N;++i){
+        for (int j = 0; j < N; ++j) {
+            B_T[j * N + i] = B[i * N + j];
+        }
+    }
+
+    for (int i = 0;i<N;++i){
+        for (int j = 0;j<N;++j){
+            __m256 sum_vec = _mm256_setzero_ps();
+
+            for (int k = 0;k<N;k+=8){
+                __m256 a_vec = _mm256_load_ps(&A[i*N+k]);//_mm256_load_ps (load aligned) is faster than _mm256_loadu_ps because the CPU doesn't have to do safety checks.
+                __m256 b_vec = _mm256_load_ps(&B_T[j*N+k]);//_mm256_load_ps (load aligned) is faster than _mm256_loadu_ps because the CPU doesn't have to do safety checks.
 
                 sum_vec = _mm256_fmadd_ps(a_vec,b_vec,sum_vec);
             }
@@ -167,7 +211,13 @@ int main(){
     avx2_ace(A,B,C);
     auto t4_end = chrono::high_resolution_clock::now();
     chrono::duration<double,milli> t4_elapsed = t4_end-t4_start;
-    cout << "[AVX2] Waitd "<<t4_elapsed.count()<<" ms\n";
+    cout << "[AVX2] Waited "<<t4_elapsed.count()<<" ms\n";
+
+    auto t5_start = chrono::high_resolution_clock::now();
+    avx2_ace_faster(A,B,C);
+    auto t5_end = chrono::high_resolution_clock::now();
+    chrono::duration<double,milli> t5_elapsed = t5_end-t5_start;
+    cout << "[AVX2 + _mm256_load_ps] Waited "<<t5_elapsed.count()<<" ms\n";
 
     free(A);free(B);free(C);
 
@@ -176,8 +226,9 @@ int main(){
 }
 
 /*
-[Standard triple loop] Waited 3324.77 ms
-[GEMM] Waited 1229.84 ms
-[Tiling] Waited 763.056 ms
-[AVX2] Waitd 156.314 ms
+[Standard triple loop] Waited 3614.97 ms
+[GEMM] Waited 1231.59 ms
+[Tiling] Waited 747.102 ms
+[AVX2] Waited 156.597 ms
+[AVX2 + _mm256_load_ps] Waited 150.489 ms
 */
