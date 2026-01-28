@@ -47,10 +47,59 @@ class ThreadPool{
                 );
             }
         };
-        ~ThreadPool();
+        ~ThreadPool(){
+            {
+                unique_lock<mutex> lock(queueMutex);
+                stop = true;
+            }
+            condition.notify_all();
+            for(thread &worker: workers){
+                if(worker.joinable()){
+                    worker.join();//the main thread pauses and waits for every worker thread to finish its current loop iteration and exit gracefully.
+                }
+            }
+        };
 
+        //F: function type
         template<class F>
-        auto enqueue(F&& f) -> future<decltype(f())>;
+        auto enqueue(F&& f) -> future<decltype(f())>{
+            using return_type =decltype(f());// alias the return type of the functionn
+
+            //create a packaged task on the heap using make_shared
+            //In C++, if you create a variable inside a function, it is destroyed when the function ends.
+            auto task = make_shared<packaged_task<return_type()>>(forward<F>(f));
+
+            //get the future from the packaged task so that we can return it to the caller
+            future<return_type> res = task->get_future();
+
+            {//lock scope
+                unique_lock<mutex> lock(queueMutex);
+
+                //don't allow enqueueing after stopping the pool
+                if(stop){
+                    throw runtime_error("enqueue on stopped ThreadPool");
+                }
+
+                //add the task to the queue
+                //we capture the task (the shared_ptr) by value to ensure it remains valid when executed by the worker thread
+                //lambda: a function with no name
+                //[campture list](parameters) { function body }
+                tasks.emplace([task](){ (*task)(); });
+
+                /*
+                [task]: "Bring the task variable inside this box with me."
+
+                (): "I don't need any new ingredients to run."
+
+                { (*task)(); }: "When you run me, I will execute the task I brought with me."
+                */
+
+            }//lock releases here
+
+            condition.notify_one(); //notify one thread that a new task is available
+            return res;
+
+        }
     
     private:
         vector<thread> workers;
@@ -80,26 +129,15 @@ double ServiceC(){
     return 42.0;
 }
 
+//New Way
 int main(){
+    ThreadPool pool(4); // Create a thread pool with 4 workers
     auto start = chrono::high_resolution_clock::now();
-    
-    //Define the tasks
-    packaged_task<string()> taskA(ServiceA);
-    packaged_task<vector<int>()> taskB(ServiceB);
-    packaged_task<double()> taskC(ServiceC);
 
-    //Get the futures before starting the threads
-    future<string> futureA = taskA.get_future();
-    future<vector<int>> futureB = taskB.get_future();
-    future<double> futureC = taskC.get_future();
-
-    thread(move(taskA)).detach();
-    thread(move(taskB)).detach();
-
-    thread threadC(move(taskC));
-    if (threadC.joinable()){
-        threadC.detach(); // Detach the thread to allow it to run independently
-    }
+    //Enqueue the tasks
+    future<string> futureA = pool.enqueue(ServiceA);
+    future<vector<int>> futureB = pool.enqueue(ServiceB);
+    future<double> futureC = pool.enqueue(ServiceC);
 
     future_status statusC = futureC.wait_for(chrono::milliseconds(100));
     if (statusC == future_status::timeout){
@@ -113,7 +151,7 @@ int main(){
         double resultC = futureC.get();
         cout << "Service C result: " << resultC << "\n";
     }
-    
+
     string resA = futureA.get(); 
     cout << "Got A: " << resA << endl;
 
@@ -127,3 +165,53 @@ int main(){
 
     return 0;
 }
+
+//OLD WAY
+
+// int main(){
+//     auto start = chrono::high_resolution_clock::now();
+    
+//     //Define the tasks
+//     packaged_task<string()> taskA(ServiceA);
+//     packaged_task<vector<int>()> taskB(ServiceB);
+//     packaged_task<double()> taskC(ServiceC);
+
+//     //Get the futures before starting the threads
+//     future<string> futureA = taskA.get_future();
+//     future<vector<int>> futureB = taskB.get_future();
+//     future<double> futureC = taskC.get_future();
+
+//     thread(move(taskA)).detach();
+//     thread(move(taskB)).detach();
+
+//     thread threadC(move(taskC));
+//     if (threadC.joinable()){
+//         threadC.detach(); // Detach the thread to allow it to run independently
+//     }
+
+//     future_status statusC = futureC.wait_for(chrono::milliseconds(100));
+//     if (statusC == future_status::timeout){
+//         cout << "Service C is taking too long, proceeding without it.\n";
+//         cout << "cur elapsed:"
+//              << chrono::duration_cast<chrono::milliseconds>(
+//                     chrono::high_resolution_clock::now() - start).count() 
+//              << " ms\n";
+//     }
+//     else{
+//         double resultC = futureC.get();
+//         cout << "Service C result: " << resultC << "\n";
+//     }
+    
+//     string resA = futureA.get(); 
+//     cout << "Got A: " << resA << endl;
+
+//     vector<int> resB = futureB.get();
+//     cout << "Got B (size): " << resB.size() << endl;
+
+//     auto end = chrono::high_resolution_clock::now();
+//     cout << "Total elapsed time: " 
+//          << chrono::duration_cast<chrono::milliseconds>(end - start).count() 
+//          << " ms\n";
+
+//     return 0;
+// }
