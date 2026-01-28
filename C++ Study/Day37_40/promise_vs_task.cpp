@@ -156,7 +156,14 @@ int main(){
     promise<void> configProm;
     shared_future<void> configFuture = configProm.get_future().share();
 
-    thread t1([configFuture]{configFuture.wait();ServiceA();});
+    thread t1([configFuture]{configFuture.wait();
+        try{
+            ServiceA();
+        }
+        catch(const exception& e){
+            cerr << "Error in Service A during configuration: " << e.what() << endl;
+        }
+    });
     thread t2([configFuture]{configFuture.wait();ServiceB();});
 
     try{
@@ -166,8 +173,7 @@ int main(){
         cerr << "Error setting configuration promise: " << e.what() << endl;
     }
 
-    t1.join();
-    t2.join();
+    
 
     //Enqueue the tasks
     future<string> futureA = pool.enqueue(ServiceA);
@@ -203,5 +209,18 @@ int main(){
          << chrono::duration_cast<chrono::milliseconds>(end - start).count() 
          << " ms\n";
 
+    t1.join();
+    t2.join();
+
     return 0;
 }
+
+/*
+Error in Service A during configuration: CRITICAL: User Database Connection Failed!
+Error retrieving result from Service A: CRITICAL: User Database Connection Failed!
+Service B completed
+Service B completed
+Got B (size): 5
+Total elapsed time: 500 ms
+Service C completed
+*/
