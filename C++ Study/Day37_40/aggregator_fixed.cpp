@@ -72,3 +72,13 @@ int main(){
 
     return 0;
 }
+
+/*
+Service C is taking too long, proceeding without it.
+cur elapsed:100 ms
+Service A completed
+Got A: Data from Service A
+Service B completed
+Got B (size): 5
+Total elapsed time: 500 ms
+*/
